@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>上传图片</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body style="font-family: sans-serif; padding: 30px;">
+
+  <h2>上传图片</h2>
+
+  <form id="uploadForm">
+    <div>
+      <label>选择图片：</label><br>
+      <input type="file" id="image" accept="image/*" required>
+    </div>
+
+    <br>
+
+    <div>
+      <label>简介：</label><br>
+      <input type="text" id="aircraft" required>
+    </div>
+
+    <br>
+
+    <button type="submit">上传</button>
+  </form>
+
+  <p id="status"></p>
+
+  <script>
+    document.getElementById("uploadForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const formData = new FormData();
+      formData.append("image", document.getElementById("image").files[0]);
+      formData.append("aircraft", document.getElementById("aircraft").value);
+
+      try {
+        const res = await fetch("https://91photosupload.zzgs1v2.workers.dev/", {
+          method: "POST",
+          body: formData
+        });
+
+        if (res.ok) {
+          document.getElementById("status").innerText = "✅ 上传成功，等待审核";
+        } else {
+          document.getElementById("status").innerText = "❌ 上传失败，请稍后再试";
+        }
+      } catch (err) {
+        document.getElementById("status").innerText = "❌ 网络错误，无法上传";
+      }
+    });
+  </script>
+
+</body>
+</html>
