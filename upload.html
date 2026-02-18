@@ -3,27 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <title>上传图片</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body style="font-family: sans-serif; padding: 30px;">
 
   <h2>上传图片</h2>
 
   <form id="uploadForm">
-    <div>
-      <label>选择图片：</label><br>
-      <input type="file" id="image" accept="image/*" required>
-    </div>
-
-    <br>
-
-    <div>
-      <label>简介：</label><br>
-      <input type="text" id="aircraft" required>
-    </div>
-
-    <br>
-
+    <input type="file" id="image" accept="image/*" required>
+    <br><br>
     <button type="submit">上传</button>
   </form>
 
@@ -35,7 +22,8 @@
 
       const formData = new FormData();
       formData.append("image", document.getElementById("image").files[0]);
-      formData.append("aircraft", document.getElementById("aircraft").value);
+
+      document.getElementById("status").innerText = "正在上传...";
 
       try {
         const res = await fetch("https://91photosupload.zzgs1v2.workers.dev/", {
@@ -43,13 +31,11 @@
           body: formData
         });
 
-        if (res.ok) {
-          document.getElementById("status").innerText = "✅ 上传成功，等待审核";
-        } else {
-          document.getElementById("status").innerText = "❌ 上传失败，请稍后再试";
-        }
+        const text = await res.text();
+        document.getElementById("status").innerText = text;
+
       } catch (err) {
-        document.getElementById("status").innerText = "❌ 网络错误，无法上传";
+        document.getElementById("status").innerText = "上传失败";
       }
     });
   </script>
