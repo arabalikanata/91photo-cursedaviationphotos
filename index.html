@@ -1,31 +1,67 @@
 <!DOCTYPE html>
-
-<html lang="zh-cn”>
-
+<html lang="zh-cn">
 <head>
-
   <meta charset="UTF-8">
-
   <title>91photos官方站</title>
-
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-</head>
+  <style>
+    body {
+      text-align: center;
+      font-family: Arial, sans-serif;
+    }
+
+    #approved-gallery {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+      max-width: 1200px;
+      margin: 20px auto;
+    }
+
+    #approved-gallery img {
+      width: 100%;
+      border-radius: 8px;
+    }
+
+    @media (max-width: 768px) {
+      #approved-gallery {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 10px 16px;
+      background-color: #0070f3;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: 500;
+      margin: 20px;
+    }
+
+    .btn:hover {
+      background-color: #0059c1;
+    }
+  </style>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🥵</text></svg>">
-<body style="font-family: sans-serif; text-align: center; padding: 40px;">
+</head>
 
-  <h1>✈️☕️91photos官方站</h1>
+<body>
 
-  <p>一个致力于收集各种阴间飞机照片的网站</p>
+<h1>✈️☕️91photos官方站</h1>
+<p>一个致力于收集各种阴间飞机照片的网站</p>
+<p>网页开发中...</p>
 
-  <p>网页开发中。。。</p>
+<h2>已通过照片</h2>
+<div id="approved-gallery"></div>
+
+<a href="guide.html" class="btn">传图</a>
+
 <script>
 async function loadApprovedPhotos() {
-    const username = "arabalikanata";
-    const repo = "91photo-warehouse";
-    const folder = "Approved Photos";
-
-    const apiUrl = `https://api.github.com/repos/arabalikanata/91photo-warehouse/contents/Approved Photos;
+    const apiUrl = "https://api.github.com/repos/arabalikanata/91photo-warehouse/contents/Approved%20Photos";
 
     try {
         const response = await fetch(apiUrl);
@@ -37,9 +73,6 @@ async function loadApprovedPhotos() {
             if (file.type === "file" && file.name.match(/\.(jpg|jpeg|png|webp)$/i)) {
                 const img = document.createElement("img");
                 img.src = file.download_url;
-                img.style.width = "250px";
-                img.style.margin = "10px";
-                img.style.borderRadius = "8px";
                 gallery.appendChild(img);
             }
         });
@@ -51,21 +84,6 @@ async function loadApprovedPhotos() {
 
 loadApprovedPhotos();
 </script>
-</body>
-  <a href="guide.html" class="btn">传图</a>
-<style>
-  .btn {
-    display: inline-block;
-    padding: 10px 16px;
-    background-color: #0070f3;
-    color: white;
-    text-decoration: none;
-    border-radius: 6px;
-    font-weight: 500;
-  }
 
-  .btn:hover {
-    background-color: #0059c1;
-  }
-</style>
+</body>
 </html>
