@@ -19,24 +19,39 @@
   <p>一个致力于收集各种阴间飞机照片的网站</p>
 
   <p>网页开发中。。。</p>
+<script>
+async function loadApprovedPhotos() {
+    const username = "arabalikanata";
+    const repo = "91photo-warehouse";
+    const folder = "Approved Photos";
 
+    const apiUrl = `https://api.github.com/repos/arabalikanata/91photo-warehouse/contents/Approved Photos;
+
+    try {
+        const response = await fetch(apiUrl);
+        const files = await response.json();
+
+        const gallery = document.getElementById("approved-gallery");
+
+        files.forEach(file => {
+            if (file.type === "file" && file.name.match(/\.(jpg|jpeg|png|webp)$/i)) {
+                const img = document.createElement("img");
+                img.src = file.download_url;
+                img.style.width = "250px";
+                img.style.margin = "10px";
+                img.style.borderRadius = "8px";
+                gallery.appendChild(img);
+            }
+        });
+
+    } catch (error) {
+        console.error("加载失败:", error);
+    }
+}
+
+loadApprovedPhotos();
+</script>
 </body>
-<a href="photos.html" class="btn">查看图片</a>
-<style>
-  .btn {
-    display: inline-block;
-    padding: 10px 16px;
-    background-color: #0070f3;
-    color: white;
-    text-decoration: none;
-    border-radius: 6px;
-    font-weight: 500;
-  }
-
-  .btn:hover {
-    background-color: #0059c1;
-  }
-</style>
   <a href="guide.html" class="btn">传图</a>
 <style>
   .btn {
