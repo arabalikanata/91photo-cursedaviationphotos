@@ -55,13 +55,12 @@
 <p>网页开发中...</p>
 
 <h2>已通过照片</h2>
-<div id="approved-gallery"></div>
-
 <a href="guide.html" class="btn">传图</a>
+<div id="approved-gallery"></div>
 
 <script>
 async function loadApprovedPhotos() {
-    const apiUrl = "https://api.github.com/repos/arabalikanata/91photo-warehouse/contents/Approved%20Photos";
+    const apiUrl = "https://api.github.com/repos/arabalikanata/91photo-warehouse/contents/approved”;
 
     try {
         const response = await fetch(apiUrl);
